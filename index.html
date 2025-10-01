@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima y Música - Córdoba</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="section clima-section">
+            <div class="header">
+                <div class="title">CLIMA</div>
+                <div class="current-time" id="currentTime">--:--:--</div>
+                <div class="moon-phase" id="moonPhase">🌙 --</div>
+            </div>
+
+            <div class="current-weather" id="currentWeather">
+                <div class="loading">Cargando datos del clima...</div>
+            </div>
+
+            <div class="proyeccion-text">proyección semanal de clima</div>
+            
+            <div class="weekly-forecast" id="weeklyForecast">
+                <div class="loading">Cargando pronóstico...</div>
+            </div>
+        </div>
+
+        <div class="section music-section">
+            <div class="header">
+                <div class="title music-title">reproductor de música</div>
+            </div>
+
+            <div class="music-player">
+                <audio id="audioPlayer" preload="none">
+                    <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/cadenaheat.mp3?dist=c3-web" type="audio/mpeg">
+                </audio>
+
+                <div class="player-controls">
+                    <button class="btn" id="playPauseBtn">▶ Play</button>
+                    <button class="btn" id="refreshBtn">🔄 Volver a En Vivo</button>
+                    <div class="volume-control">
+                        <span class="volume-label">🔊 Volumen:</span>
+                        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="70">
+                        <span class="volume-label" id="volumeValue">70%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
