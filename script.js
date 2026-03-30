@@ -289,15 +289,23 @@ function getEstadoCapibara() {
 }
 
 function actualizarCapibara() {
-  const estado = getEstadoCapibara();
-  const img = document.getElementById('capibara-gif');
-  if (!img || img.dataset.estado === estado) return;
-  img.style.opacity = '0';
-  setTimeout(() => {
-    img.src = capibaraGifs[estado];
-    img.dataset.estado = estado;
-    img.onload = () => { img.style.opacity = '1'; };
-  }, 400);
+    const estado = getEstadoCapibara();
+    const img = document.getElementById('capibara-gif');
+    if (!img || img.dataset.estado === estado) return;
+
+    img.style.opacity = '0';
+
+    setTimeout(() => {
+        img.dataset.estado = estado;
+
+        // 1. onload ANTES de cambiar src
+        img.onload = () => { img.style.opacity = '1'; };
+
+        img.src = capibaraGifs[estado];
+
+        // 2. Fallback: si ya estaba cacheado y onload no dispara
+        setTimeout(() => { img.style.opacity = '1'; }, 500);
+    }, 400);
 }
 
 actualizarCapibara();
