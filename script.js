@@ -283,8 +283,8 @@ function getEstadoCapibara() {
   if (t >= 9    && t < 11.5) return 'desayunando';
   if (t >= 11.5 && t < 13)   return 'almorzando';
   if (t >= 13   && t < 15)   return 'durmiendo';
-  if (t >= 15  && t< 17 )    return 'merendando';
-  if (t >= 17   && t < 19)   return 'jugando';
+  if (t >= 15  && t< 16.5 )    return 'merendando';
+  if (t >= 16.5   && t < 19)   return 'jugando';
   return 'durmiendo';
 }
 
