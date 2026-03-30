@@ -272,7 +272,7 @@ setInterval(animateElements, 30000);
 const capibaraGifs = {
   desayunando: 'https://media.giphy.com/media/bGvm4bCXlCYitmW3xV/giphy.gif',
   almorzando:  'https://media.giphy.com/media/7fVaFeAU6GHVmEfc08/giphy.gif',
-  durmiendo:   'https://media.giphy.com/media/WIb1rMuj6BWJwii1A2/giphy.gif',
+  durmiendo:   'https://media.giphy.com/media/DhAGxDXQiiEl5S1OoM/giphy.gif',
   jugando:     'https://media.giphy.com/media/bGvm4bCXlCYitmW3xV/giphy.gif'
 };
 
