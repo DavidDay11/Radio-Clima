@@ -273,7 +273,8 @@ const capibaraGifs = {
   desayunando: 'https://media.giphy.com/media/bGvm4bCXlCYitmW3xV/giphy.gif',
   almorzando:  'https://media.giphy.com/media/7fVaFeAU6GHVmEfc08/giphy.gif',
   durmiendo:   'https://media.giphy.com/media/DhAGxDXQiiEl5S1OoM/giphy.gif',
-  jugando:     'https://media.giphy.com/media/bGvm4bCXlCYitmW3xV/giphy.gif'
+  jugando:     'https://media.giphy.com/media/oglVMFOJskmTftbevE/giphy.gif',
+  merendando:  'https://media.giphy.com/media/bGvm4bCXlCYitmW3xV/giphy.gif'
 };
 
 function getEstadoCapibara() {
@@ -282,7 +283,8 @@ function getEstadoCapibara() {
   if (t >= 9    && t < 11.5) return 'desayunando';
   if (t >= 11.5 && t < 13)   return 'almorzando';
   if (t >= 13   && t < 15)   return 'durmiendo';
-  if (t >= 15   && t < 19)   return 'jugando';
+  if (t >= 15  && t< 17 )    return 'merendando';
+  if (t >= 17   && t < 19)   return 'jugando';
   return 'durmiendo';
 }
 
