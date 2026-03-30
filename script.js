@@ -272,9 +272,10 @@ setInterval(animateElements, 30000);
 const capibaraGifs = {
   desayunando: 'https://media.giphy.com/media/bGvm4bCXlCYitmW3xV/giphy.gif',
   almorzando:  'https://media.giphy.com/media/7fVaFeAU6GHVmEfc08/giphy.gif',
-  durmiendo:   'https://media.giphy.com/media/DhAGxDXQiiEl5S1OoM/giphy.gif',
+  durmiendo:   'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWk0MW01c3NtYWU0NGdueHdodTNwbXB3MzdiOHc3OGp5NWVxN3BuYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qZpLEtpdjADZBJoJ0D/giphy.gif',
   jugando:     'https://media.giphy.com/media/oglVMFOJskmTftbevE/giphy.gif',
-  merendando:  'https://media.giphy.com/media/bGvm4bCXlCYitmW3xV/giphy.gif'
+  merendando:  'https://media.giphy.com/media/bGvm4bCXlCYitmW3xV/giphy.gif',
+  siesta:       'https://media.giphy.com/media/ov5ama4S1D1YLpyosv/giphy.gif'
 };
 
 function getEstadoCapibara() {
@@ -282,7 +283,7 @@ function getEstadoCapibara() {
   const t = ahora.getHours() + ahora.getMinutes() / 60;
   if (t >= 9    && t < 11.5) return 'desayunando';
   if (t >= 11.5 && t < 13)   return 'almorzando';
-  if (t >= 13   && t < 15)   return 'durmiendo';
+  if (t >= 13   && t < 15)   return 'siesta';
   if (t >= 15  && t< 16.5 )    return 'merendando';
   if (t >= 16.5   && t < 19)   return 'jugando';
   return 'durmiendo';
