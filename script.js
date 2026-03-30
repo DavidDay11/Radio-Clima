@@ -268,3 +268,35 @@ setInterval(() => {
 
 // Animación cada 30 segundos
 setInterval(animateElements, 30000);
+
+const capibaraGifs = {
+  desayunando: 'https://media.giphy.com/media/bGvm4bCXlCYitmW3xV/giphy.gif',
+  almorzando:  'https://media.giphy.com/media/7fVaFeAU6GHVmEfc08/giphy.gif',
+  durmiendo:   'https://media.giphy.com/media/WIb1rMuj6BWJwii1A2/giphy.gif',
+  jugando:     'https://media.giphy.com/media/bGvm4bCXlCYitmW3xV/giphy.gif'
+};
+
+function getEstadoCapibara() {
+  const ahora = new Date();
+  const t = ahora.getHours() + ahora.getMinutes() / 60;
+  if (t >= 9    && t < 11.5) return 'desayunando';
+  if (t >= 11.5 && t < 13)   return 'almorzando';
+  if (t >= 13   && t < 15)   return 'durmiendo';
+  if (t >= 15   && t < 19)   return 'jugando';
+  return 'durmiendo';
+}
+
+function actualizarCapibara() {
+  const estado = getEstadoCapibara();
+  const img = document.getElementById('capibara-gif');
+  if (!img || img.dataset.estado === estado) return;
+  img.style.opacity = '0';
+  setTimeout(() => {
+    img.src = capibaraGifs[estado];
+    img.dataset.estado = estado;
+    img.onload = () => { img.style.opacity = '1'; };
+  }, 400);
+}
+
+actualizarCapibara();
+setInterval(actualizarCapibara, 60_000);

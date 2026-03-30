@@ -255,3 +255,13 @@ body {
         align-items: stretch;
     }
 }
+
+/* ── Capibara ── */
+.moon-capibara-col {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-left: 900px;
+}
