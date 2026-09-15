@@ -596,14 +596,15 @@ setInterval(
 // DURMIENDO:
 // siesta + durmiendo
 //
-// Los GIF pueden repetirse.
+// Cambia automáticamente cada 30 minutos.
+// No necesita recargar la página.
+// El GIF nuevo nunca será igual al anterior.
 // =====================================================
 
 
 const capibaraPools = {
 
     comiendo: [
-
         'https://media.giphy.com/media/pj2UVuSj39Dx2czoZl/giphy.gif',
         'https://media.giphy.com/media/bGvm4bCXlCYitmW3xV/giphy.gif',
         'https://media.giphy.com/media/lhJUkqTdfCI2tnTj79/giphy.gif',
@@ -613,12 +614,9 @@ const capibaraPools = {
         'https://media.giphy.com/media/pW4kZJuTuoq7NFH6VE/giphy.gif',
         'https://media.giphy.com/media/XEHhfEvGc89ablCLXz/giphy.gif',
         'https://media.giphy.com/media/FET5gt8EzjVy7TaUxb/giphy.gif'
-
     ],
 
-
     actividad: [
-
         'https://media.giphy.com/media/FS9oyWJ6veb4ztVVXa/giphy.gif',
         'https://media.giphy.com/media/1rPWDV2ZFFXf0nIbKq/giphy.gif',
         'https://media.giphy.com/media/A8BUPZ8EuzdGvOX9OD/giphy.gif',
@@ -642,12 +640,9 @@ const capibaraPools = {
         'https://media.giphy.com/media/gSAKvgeqDz8qzdXnka/giphy.gif',
         'https://media.giphy.com/media/aPAaN8tW4YYIUHXhj6/giphy.gif',
         'https://media.giphy.com/media/z88dAvuFg4mDS9UWWG/giphy.gif'
-
     ],
 
-
     almuerzo: [
-
         'https://media.giphy.com/media/l1uSgb7Q4q6dRQunQe/giphy.gif',
         'https://media.giphy.com/media/pVyu6rQsCxcxziU8WK/giphy.gif',
         'https://media.giphy.com/media/8Irqo70IzK2PjTyVmZ/giphy.gif',
@@ -658,12 +653,9 @@ const capibaraPools = {
         'https://media.giphy.com/media/jcmedM165Zp07V02dV/giphy.gif',
         'https://media.giphy.com/media/eOU3H01o4ylHGAOg2h/giphy.gif',
         'https://media.giphy.com/media/F0q6qGNeLvNBxJee0I/giphy.gif'
-
     ],
 
-
     durmiendo: [
-
         'https://media.giphy.com/media/bvTHXvEacIu8Kgx6RO/giphy.gif',
         'https://media.giphy.com/media/WIb1rMuj6BWJwii1A2/giphy.gif',
         'https://media.giphy.com/media/moH0jCwPwnlDIEZJCG/giphy.gif',
@@ -672,13 +664,12 @@ const capibaraPools = {
         'https://media.giphy.com/media/2ewM4OSexrpLvV877M/giphy.gif',
         'https://media.giphy.com/media/YcuDDysmYnwaTtZb7g/giphy.gif',
         'https://media.giphy.com/media/hFnmR8Z9pomj3yZ9pd/giphy.gif'
-
     ]
 };
 
 
 // =====================================================
-// DETERMINAR ESTADO DEL CAPIBARA
+// ESTADO DEL CAPIBARA
 // =====================================================
 
 function getEstadoCapibara() {
@@ -691,58 +682,46 @@ function getEstadoCapibara() {
 
 
     if (t >= 8 && t < 9.5) {
-
         return {
             estado: 'desayunando',
             pool: 'comiendo'
         };
     }
 
-
     if (t >= 9.5 && t < 11.5) {
-
         return {
             estado: 'mediamanana',
             pool: 'actividad'
         };
     }
 
-
     if (t >= 11.5 && t < 13) {
-
         return {
             estado: 'almorzando',
             pool: 'almuerzo'
         };
     }
 
-
     if (t >= 13 && t < 15) {
-
         return {
             estado: 'siesta',
             pool: 'durmiendo'
         };
     }
 
-
     if (t >= 15 && t < 16.5) {
-
         return {
             estado: 'merendando',
             pool: 'comiendo'
         };
     }
 
-
     if (t >= 16.5 && t < 19) {
-
         return {
             estado: 'jugando',
             pool: 'actividad'
         };
     }
-
 
     return {
         estado: 'durmiendo',
@@ -752,29 +731,43 @@ function getEstadoCapibara() {
 
 
 // =====================================================
-// ELEGIR GIF ALEATORIO
+// OBTENER GIF ALEATORIO
 // =====================================================
 
 function obtenerGifCapibara(pool) {
 
-    const gifs =
-        capibaraPools[pool];
+    const gifs = capibaraPools[pool];
 
     if (!gifs || gifs.length === 0) {
         return '';
     }
 
-    // Puede repetirse
-    return gifs[
-        Math.floor(
-            Math.random() * gifs.length
-        )
-    ];
+    const img =
+        document.getElementById('capibara-gif');
+
+    const ultimoGif =
+        img?.dataset.ultimoGif || '';
+
+    // Si hay más de un GIF, evitar repetir el anterior
+    if (gifs.length > 1) {
+
+        let nuevoGif;
+
+        do {
+            nuevoGif =
+                gifs[Math.floor(Math.random() * gifs.length)];
+
+        } while (nuevoGif === ultimoGif);
+
+        return nuevoGif;
+    }
+
+    return gifs[0];
 }
 
 
 // =====================================================
-// CAMBIAR CAPIBARA
+// CAMBIAR GIF
 // =====================================================
 
 function cambiarCapibara(info) {
@@ -816,18 +809,47 @@ function cambiarCapibara(info) {
         img.dataset.pool =
             info.pool;
 
-
-        // Guardamos el momento del cambio
-        img.dataset.ultimoCambio =
-            Date.now();
+        img.dataset.ultimoGif =
+            nuevoGif;
 
 
-        // Fallback por si el GIF está en caché
+        // Guardamos el bloque de 30 minutos
+        img.dataset.ultimoBloque =
+            obtenerBloque30Minutos();
+
+
+        // Fallback por si está en caché
         setTimeout(() => {
             img.style.opacity = '1';
         }, 700);
 
     }, 400);
+}
+
+
+// =====================================================
+// BLOQUE DE 30 MINUTOS ACTUAL
+// =====================================================
+//
+// Ejemplos:
+//
+// 08:00 - 08:29 → bloque 16
+// 08:30 - 08:59 → bloque 17
+// 09:00 - 09:29 → bloque 18
+// 09:30 - 09:59 → bloque 19
+//
+// Cada bloque tiene un número único.
+// =====================================================
+
+function obtenerBloque30Minutos() {
+
+    const ahora = new Date();
+
+    const minutosTotales =
+        ahora.getHours() * 60 +
+        ahora.getMinutes();
+
+    return Math.floor(minutosTotales / 30);
 }
 
 
@@ -848,8 +870,40 @@ function actualizarCapibara() {
     }
 
 
+    const bloqueActual =
+        obtenerBloque30Minutos();
+
+    const ultimoBloque =
+        Number(
+            img.dataset.ultimoBloque || -1
+        );
+
+
     // -------------------------------------------------
-    // SI CAMBIÓ EL ESTADO
+    // 1. PRIMERA CARGA
+    // -------------------------------------------------
+
+    if (!img.dataset.ultimoGif) {
+
+        cambiarCapibara(info);
+
+        return;
+    }
+
+
+    // -------------------------------------------------
+    // 2. CAMBIÓ EL ESTADO
+    // -------------------------------------------------
+    //
+    // Por ejemplo:
+    //
+    // 09:29 → media mañana
+    // 09:30 → sigue media mañana
+    //
+    // 11:29 → media mañana
+    // 11:30 → almorzando
+    //
+    // En ambos casos se cambia el GIF.
     // -------------------------------------------------
 
     if (img.dataset.estado !== info.estado) {
@@ -861,72 +915,42 @@ function actualizarCapibara() {
 
 
     // -------------------------------------------------
-    // CAMBIO AUTOMÁTICO CADA :00 Y :30
+    // 3. CAMBIÓ EL BLOQUE DE 30 MINUTOS
     // -------------------------------------------------
 
-    const ahora = new Date();
+    if (bloqueActual !== ultimoBloque) {
 
-    const minutos =
-        ahora.getMinutes();
+        cambiarCapibara(info);
 
-    const segundos =
-        ahora.getSeconds();
-
-
-    // Cambia cuando llegamos a:
-    // HH:00:00
-    // HH:30:00
-
-    const esMomentoDeCambio =
-        (
-            minutos === 0 ||
-            minutos === 30
-        ) &&
-        segundos < 5;
-
-
-    if (esMomentoDeCambio) {
-
-        // Evitar que cambie varias veces
-        // durante esos 5 segundos
-        const ultimoCambio =
-            Number(
-                img.dataset.ultimoCambio || 0
-            );
-
-
-        const diferencia =
-            Date.now() - ultimoCambio;
-
-
-        if (diferencia > 10000) {
-
-            cambiarCapibara(info);
-        }
+        return;
     }
 }
 
 
 // =====================================================
-// INICIAR CAPIBARA
+// INICIO
 // =====================================================
 
-// Mostrar uno inmediatamente
 actualizarCapibara();
 
 
-// Revisar cada segundo.
+// Revisamos cada segundo.
 //
-// Esto permite detectar exactamente:
+// No importa si la página se abrió a las 08:17,
+// 08:29 o 08:47.
+//
+// El sistema detecta el cambio de bloque:
+//
+// 08:00
+// 08:30
+// 09:00
+// 09:30
 // 10:00
-// 10:30
-// 11:00
-// 11:30
 // etc.
 //
-// También detecta inmediatamente
-// los cambios de estado.
-//
+// Sin recargar la página.
+// =====================================================
+
 setInterval(
     actualizarCapibara,
     1000
